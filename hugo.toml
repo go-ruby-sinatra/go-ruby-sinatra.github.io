@@ -1,0 +1,35 @@
+baseURL = "https://go-ruby-sinatra.github.io/"
+title = "go-ruby-sinatra"
+disableKinds = ["taxonomy", "term", "RSS", "sitemap", "404"]
+
+[markup.goldmark.renderer]
+  unsafe = true
+
+[[params.phases]]
+  name = "Routing table"
+  status = "ready"
+  blurb = "A per-verb route table — `Get`/`Post`/`Put`/`Delete`/`Patch`/`Options`/`Head` plus `Route` for arbitrary verbs — with first-match-wins ordering. `Get` also registers `HEAD`, exactly like Sinatra."
+[[params.phases]]
+  name = "Pattern compiler"
+  status = "ready"
+  blurb = "Mustermann-style `\"/hello/:name\"` named captures, `*` splats, the optional trailing `?`, and raw regexp routes, compiled to an anchored `regexp` with Sinatra's exact `:name → [^/?#]+`, `:name? → (…)?`, `* → .*?` semantics; captures are URI-decoded."
+[[params.phases]]
+  name = "Params merge"
+  status = "ready"
+  blurb = "Request query + form params seed `params`, then route captures override on collision via Sinatra's `v2 || v1` rule; splats accumulate into `params[\"splat\"]` and regexp groups into `params[\"captures\"]`."
+[[params.phases]]
+  name = "Dispatch & filters"
+  status = "ready"
+  blurb = "`before`/`after` filters with their own patterns and capture merge, `halt`/`pass`/`redirect`/`status`/`content_type`/`headers`/`body`, and the `not_found`/`error(code)` handlers, producing the Rack `[status, headers, body]` tuple."
+[[params.phases]]
+  name = "Helpers & settings"
+  status = "ready"
+  blurb = "`content_type` mime resolution with Sinatra's `add_charset` rule, `url`/`uri` resolution, conditional `halt`, and a `set`/`enable`/`disable` settings registry — all built on `rack.Request`/`rack.Response`."
+[[params.phases]]
+  name = "Differential oracle & coverage"
+  status = "ready"
+  blurb = "The same routes compiled under the real `sinatra` gem (4.x) and compared byte-for-byte — route→params, filter order, `halt`/`pass`/`redirect`, `content_type` and the Rack tuple; 100% coverage, gofmt + go vet clean, green across all six 64-bit Go arches and three OSes."
+[[params.phases]]
+  name = "Templating & session"
+  status = "planned"
+  blurb = "ERB/Haml rendering, the session store and the Ruby `do…end` action bodies are documented **seams** the embedding runtime (rbgo) supplies; the HTTP server (socket accept, TLS, `Rack::Handler`) is the host's job and out of scope."
